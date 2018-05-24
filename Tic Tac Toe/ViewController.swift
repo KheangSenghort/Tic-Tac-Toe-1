@@ -14,7 +14,8 @@ class ViewController: UIViewController {
     var gamestate = [0, 0, 0, 0, 0, 0, 0, 0, 0]
     var winningcombinations = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,4,8],[0,4,8],[2,4,6]]
     var isgameactive = true
-    
+    var count = 0
+    var flag = 0
     @IBOutlet weak var whowon: UILabel!
     
     
@@ -34,6 +35,11 @@ class ViewController: UIViewController {
                 sender.setImage(UIImage(named: "Nought.png"), for: UIControlState())
                 activeplayer = 1
             }
+            count = count+1
+        }
+        if(flag == 0 && count == 9)
+        {
+            whowon.text = " DRAW"
         }
         for i in winningcombinations
         {
@@ -43,15 +49,18 @@ class ViewController: UIViewController {
                     //print("cross win")
                     isgameactive = false
                     whowon.text = " CROSS WON"
+                    flag = 1
                     
                 }
                 if(activeplayer == 1){
                     //print("Nought win")
                     isgameactive = false
                     whowon.text = " NOUGHT WON"
+                    flag = 1
                 }
             }
         }
+        
     }
     
     @IBAction func playagain(_ sender: UIView) {
@@ -63,7 +72,8 @@ class ViewController: UIViewController {
             let button = view.viewWithTag(j) as! UIButton
             button.setImage(nil, for:UIControlState())
         }
-        
+        flag = 0
+        count = 0
     }
     override func viewDidLoad() {
         super.viewDidLoad()
